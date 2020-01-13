@@ -1,0 +1,12 @@
+.Field {
+	font-weight: bold;
+	--size: 50px;
+	border: 1px solid #000;
+	width: var(--size);
+	height: var(--size);
+	min-width: var(--size);
+	min-height: var(--size);
+	display: inline-block;
+	text-align: center;
+	line-height: var(--size);
+}

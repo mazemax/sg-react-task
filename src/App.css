@@ -1,0 +1,9 @@
+.TicTacToeApp {
+  text-align: center;
+  font-family: sans-serif;
+}
+
+.TicTacToeApp header {
+  display: block;
+  margin: 2em 0em;
+}

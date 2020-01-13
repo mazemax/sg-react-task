@@ -1,0 +1,8 @@
+.GameStatus {
+	margin-top: 1em;
+}
+
+button.Reset {
+	display: block;
+	margin: 0.5em auto 0em auto;
+}
