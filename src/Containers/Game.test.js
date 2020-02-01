@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import Game, { firstPlayer } from './Game';
 import { sum2DArray, arrayEqual } from '../lib/util';
 
@@ -12,6 +12,8 @@ jest.spyOn(React, 'useEffect').mockImplementation((f, metrics) => {
 let wrapper;
 beforeEach(() => {
   wrapper = shallow(<Game />);
+  wrapper.find('input').simulate('change', { target: { value: 3 } });
+  wrapper.find('button').simulate('click');
 });
 
 test('Contains Board and Status Indicator', () => {

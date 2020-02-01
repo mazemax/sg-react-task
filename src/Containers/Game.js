@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Modal from 'react-modal';
 import {
 	isInteger,
 	withinRange,
@@ -17,14 +18,28 @@ import './Game.css';
 export const firstPlayer = 1;
 
 const Game = () => {
+	const [size, setSize] = useState(3);
 	const [player, setPlayer] = useState(firstPlayer);
 	const [winner, setWinner] = useState();
+	const [gameStarted, setGameStarted] = useState(false);
 	const [board, setBoard] = useState(getEmptyBoard());
+	const [modalIsOpen, setModalIsOpen] = useState(true);
+	const customStyles = {
+		content : {
+			top                   : '50%',
+			left                  : '50%',
+			right                 : 'auto',
+			bottom                : 'auto',
+			marginRight           : '-50%',
+			transform             : 'translate(-50%, -50%)'
+		}
+	};
 
 	function newGame() {
 		setBoard(getEmptyBoard());
 		setPlayer(firstPlayer);
 		setWinner();
+		setGameStarted(true);
 	}
 
 	function nextTurn() {
@@ -46,18 +61,17 @@ const Game = () => {
 	}
 
 	React.useEffect(() => {
-		const foundWinner = findWinner(board);
+		const foundWinner = gameStarted && findWinner(board);
 		if (foundWinner) {
 			setWinner(foundWinner);
 			setPlayer();
 			return;
 		}
-		if (!hasEmptyFields(board)) {
+		if (gameStarted && !hasEmptyFields(board)) {
 			console.log('no empty fields');
 			setPlayer();
 		}
-	}, [board]);
-
+	}, [board, gameStarted]);
 
 	/**
 	 * When a player selects a field on board
@@ -74,13 +88,35 @@ const Game = () => {
 		markField(player, xCoordinate, yCoordinate);
 	}
 
+	const onSubmit = () => {
+		setModalIsOpen(false);
+		newGame();
+	};
+
 	return (
 		<div className="Game">
-			<Board
-				values={board}
-				readonly={!!winner || !player}
-				onAction={handleAction}
-			/>
+			<Modal
+				isOpen={modalIsOpen}
+				style={customStyles}
+				contentLabel='Board Size Modal'
+				ariaHideApp={false}
+				shouldCloseOnOverlayClick={false}
+			>
+				<div>Size: </div>
+				<form>
+					<input type={'number'} min={3} max={50} onChange={event => setSize(parseInt(event.target.value))} />
+					<button type={'button'} onClick={onSubmit}>Start Game</button>
+				</form>
+			</Modal>
+
+			{
+				!modalIsOpen &&
+				<Board
+					values={board}
+					readonly={!!winner || !player}
+					onAction={handleAction}
+				/>
+			}
 			<StatusIndicator winner={winner} player={player} onReset={newGame} />
 		</div>
 	);
