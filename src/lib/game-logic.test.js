@@ -1,4 +1,4 @@
-import { 
+import {
 	fieldIsEmpty,
 	findWinner,
 	hasEmptyFields,
@@ -48,6 +48,6 @@ describe('Util Functions', () => {
 	});
 
 	test('getEmptyBoard', () => {
-		expect(getEmptyBoard()).toEqual([[0, 0, 0], [0, 0, 0], [0, 0, 0]]);
+		expect(getEmptyBoard(3)).toEqual([[0, 0, 0], [0, 0, 0], [0, 0, 0]]);
 	});
 });

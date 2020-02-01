@@ -22,7 +22,7 @@ const Game = () => {
 	const [player, setPlayer] = useState(firstPlayer);
 	const [winner, setWinner] = useState();
 	const [gameStarted, setGameStarted] = useState(false);
-	const [board, setBoard] = useState(getEmptyBoard());
+	const [board, setBoard] = useState(getEmptyBoard(size));
 	const [modalIsOpen, setModalIsOpen] = useState(true);
 	const customStyles = {
 		content : {
@@ -36,7 +36,7 @@ const Game = () => {
 	};
 
 	function newGame() {
-		setBoard(getEmptyBoard());
+		setBoard(getEmptyBoard(size));
 		setPlayer(firstPlayer);
 		setWinner();
 		setGameStarted(true);
@@ -68,7 +68,6 @@ const Game = () => {
 			return;
 		}
 		if (gameStarted && !hasEmptyFields(board)) {
-			console.log('no empty fields');
 			setPlayer();
 		}
 	}, [board, gameStarted]);
@@ -79,8 +78,8 @@ const Game = () => {
 	 * @param yCoordinate
 	 */
 	function handleAction(xCoordinate, yCoordinate) {
-		if (!isInteger(xCoordinate) || !withinRange(xCoordinate, 0, 2)) { throw new Error(`${xCoordinate} - Not a valid coordinate!`); }
-		if (!isInteger(yCoordinate) || !withinRange(yCoordinate, 0, 2)) { throw new Error(`${yCoordinate} - Not a valid coordinate!`); }
+		if (!isInteger(xCoordinate) || !withinRange(xCoordinate, 0, size)) { throw new Error(`${xCoordinate} - Not a valid coordinate!`); }
+		if (!isInteger(yCoordinate) || !withinRange(yCoordinate, 0, size)) { throw new Error(`${yCoordinate} - Not a valid coordinate!`); }
 
 		if (!fieldIsEmpty(board, xCoordinate, yCoordinate)) { return; }
 

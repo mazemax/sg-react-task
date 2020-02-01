@@ -48,10 +48,13 @@ export function hasEmptyFields(board) {
  * Defines empty board with 2d array
  * @returns {number[][]}
  */
-export function getEmptyBoard() {
-	return [
-		[0, 0, 0],
-		[0, 0, 0],
-		[0, 0, 0],
-	];
+export function getEmptyBoard(size) {
+	let board = [];
+	for(let i=0; i < size; i++) {
+		board.push(
+			Array(size).fill(0)
+		);
+	}
+
+	return board;
 }
