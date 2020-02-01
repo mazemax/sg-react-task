@@ -28,7 +28,7 @@ test('Scenario: First marker is placed', () => {
   const testData = {
     xCoordinate: 1,
     yCoordinate: 0,
-  }
+  };
   const playerOnTurn = wrapper.find('StatusIndicator').prop('player');
   wrapper.find('Board').simulate('action', testData.xCoordinate, testData.yCoordinate);
   const newBoard = wrapper.find('Board').prop('values');
@@ -42,7 +42,7 @@ test('Scenario: Player 1 wins the game', () => {
   wrapper.find('Board').simulate('action', 2, 0);
   wrapper.find('Board').simulate('action', 2, 2);
 
-  expect(wrapper.find('Board').prop('values')).toEqual([ [ 1, 0, 0 ], [ 2, 1, 0 ], [ 2, 0, 1 ] ])
+  expect(wrapper.find('Board').prop('values')).toEqual([ [ 1, 0, 0 ], [ 2, 1, 0 ], [ 2, 0, 1 ] ]);
   expect(wrapper.find('StatusIndicator').prop('winner')).toEqual(1);
 });
 
@@ -54,7 +54,7 @@ test('Scenario: Player 2 wins the game', () => {
   wrapper.find('Board').simulate('action', 0, 1);
   wrapper.find('Board').simulate('action', 2, 2);
 
-  expect(wrapper.find('Board').prop('values')).toEqual([ [ 1, 1, 0 ], [ 0, 1, 0 ], [ 2, 2, 2 ] ])
+  expect(wrapper.find('Board').prop('values')).toEqual([ [ 1, 1, 0 ], [ 0, 1, 0 ], [ 2, 2, 2 ] ]);
   expect(wrapper.find('StatusIndicator').prop('winner')).toEqual(2);
 });
 

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { 
+import {
 	isInteger,
 	withinRange,
 	copy2DArray,
@@ -34,26 +33,37 @@ const Game = () => {
 		setPlayer(nextPlayer);
 	}
 
-	function markField(player, xCoordinate, yCoordinate) {
+	/**
+	 * Mark a field on board with player number
+	 * @param participant
+	 * @param xCoordinate
+	 * @param yCoordinate
+	 */
+	function markField(participant, xCoordinate, yCoordinate) {
 		const newBoard = copy2DArray(board);
-		newBoard[xCoordinate][yCoordinate] = player;
+		newBoard[xCoordinate][yCoordinate] = participant;
 		setBoard(newBoard);
 	}
+
 	React.useEffect(() => {
-		const winner = findWinner(board);
-		if (winner) { 
-			setWinner(winner);
+		const foundWinner = findWinner(board);
+		if (foundWinner) {
+			setWinner(foundWinner);
 			setPlayer();
 			return;
 		}
 		if (!hasEmptyFields(board)) {
 			console.log('no empty fields');
 			setPlayer();
-			return;
 		}
 	}, [board]);
 
 
+	/**
+	 * When a player selects a field on board
+	 * @param xCoordinate
+	 * @param yCoordinate
+	 */
 	function handleAction(xCoordinate, yCoordinate) {
 		if (!isInteger(xCoordinate) || !withinRange(xCoordinate, 0, 2)) { throw new Error(`${xCoordinate} - Not a valid coordinate!`); }
 		if (!isInteger(yCoordinate) || !withinRange(yCoordinate, 0, 2)) { throw new Error(`${yCoordinate} - Not a valid coordinate!`); }
@@ -66,7 +76,11 @@ const Game = () => {
 
 	return (
 		<div className="Game">
-			<Board values={board} readonly={!!winner || !player} onAction={handleAction} />
+			<Board
+				values={board}
+				readonly={!!winner || !player}
+				onAction={handleAction}
+			/>
 			<StatusIndicator winner={winner} player={player} onReset={newGame} />
 		</div>
 	);
