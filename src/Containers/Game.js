@@ -61,7 +61,7 @@ const Game = () => {
 	}
 
 	React.useEffect(() => {
-		const foundWinner = gameStarted && findWinner(board);
+		const foundWinner = gameStarted && findWinner(board, size);
 		if (foundWinner) {
 			setWinner(foundWinner);
 			setPlayer();
@@ -70,7 +70,7 @@ const Game = () => {
 		if (gameStarted && !hasEmptyFields(board)) {
 			setPlayer();
 		}
-	}, [board, gameStarted]);
+	}, [board, size, gameStarted]);
 
 	/**
 	 * When a player selects a field on board

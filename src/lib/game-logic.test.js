@@ -18,24 +18,24 @@ describe('Util Functions', () => {
 
 	test('findWinner - different winners', () => {
 		const winnerIs1 = [[1, 1, 1], [0, 2, 2], [0, 2, 0]];
-		expect(findWinner(winnerIs1)).toEqual(1);
+		expect(findWinner(winnerIs1, 3)).toEqual(1);
 
 		const winnerIs2 = [[2, 1, 1], [2, 1, 1], [2, 2, 0]];
-		expect(findWinner(winnerIs2)).toEqual(2);
+		expect(findWinner(winnerIs2, 3)).toEqual(2);
 
 		const noWinner = [[1, 2, 1], [2, 1, 2], [2, 1, 2]];
-		expect(findWinner(noWinner)).toBeFalsy();
+		expect(findWinner(noWinner, 3)).toBeFalsy();
 	});
 
 	test('findWinner - all directions', () => {
 		const row = [[0, 0, 0], [0, 0, 0], [1, 1, 1]];
-		expect(findWinner(row)).toEqual(1);
+		expect(findWinner(row, 3)).toEqual(1);
 
 		const column = [[0, 0, 1], [0, 0, 1], [0, 0, 1]];
-		expect(findWinner(column)).toEqual(1);
+		expect(findWinner(column, 3)).toEqual(1);
 
 		const diagonal = [[0, 0, 1], [0, 1, 0], [1, 0, 0]];
-		expect(findWinner(diagonal)).toEqual(1);
+		expect(findWinner(diagonal, 3)).toEqual(1);
 	});
 
 	test('hasEmptyFields', () => {
